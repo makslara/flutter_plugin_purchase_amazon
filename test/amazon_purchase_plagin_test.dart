@@ -1,6 +1,6 @@
+import 'package:amazon_purchase_plagin/amazon_purchase_plagin.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:amazon_purchase_plagin/amazon_purchase_plagin.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('amazon_purchase_plagin');
@@ -18,6 +18,6 @@ void main() {
   });
 
   test('getPlatformVersion', () async {
-    expect(await AmazonPurchasePlagin.platformVersion, '42');
+    expect(await AmazonPurchasePlugin.platformVersion, '42');
   });
 }

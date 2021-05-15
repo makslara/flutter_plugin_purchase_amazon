@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:flutter/services.dart';
 import 'package:amazon_purchase_plagin/amazon_purchase_plagin.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,9 +15,23 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
+  StreamSubscription streamSubscription;
 
   @override
   void initState() {
+    streamSubscription = AmazonPurchasePlugin.channelStream.listen((event) {
+      setState(() {
+        _platformVersion = event.toString();
+      });
+      print(event);
+    }, onError: ((handleError) {
+      setState(() {
+        _platformVersion = handleError.toString();
+      });
+      print(handleError);
+    }));
+    AmazonPurchasePlugin.setup();
+    AmazonPurchasePlugin.buySubscription();
     super.initState();
     initPlatformState();
   }
@@ -27,7 +41,7 @@ class _MyAppState extends State<MyApp> {
     String platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      platformVersion = await AmazonPurchasePlagin.platformVersion;
+      platformVersion = await AmazonPurchasePlugin.platformVersion;
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -36,10 +50,12 @@ class _MyAppState extends State<MyApp> {
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
     if (!mounted) return;
+  }
 
-    setState(() {
-      _platformVersion = platformVersion;
-    });
+  @override
+  void dispose() {
+    streamSubscription?.cancel();
+    super.dispose();
   }
 
   @override

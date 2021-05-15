@@ -9,6 +9,12 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="amazon_purchase_plagin_example"
         android:icon="@mipmap/ic_launcher">
+        <receiver android:name="com.amazon.device.iap.ResponseReceiver"
+            android:permission="com.amazon.inapp.purchasing.Permission.NOTIFY" >
+            <intent-filter>
+                <action android:name="com.amazon.inapp.purchasing.NOTIFY" />
+            </intent-filter>
+        </receiver>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
