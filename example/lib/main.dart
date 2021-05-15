@@ -31,7 +31,10 @@ class _MyAppState extends State<MyApp> {
       print(handleError);
     }));
     AmazonPurchasePlugin.setup();
-    AmazonPurchasePlugin.buySubscription();
+    AmazonPurchasePlugin.buySubscription(sku: 'com.locals.testsubscription', marketPlace: 'US')
+        .then((requestId) {
+      print(requestId);
+    });
     super.initState();
     initPlatformState();
   }

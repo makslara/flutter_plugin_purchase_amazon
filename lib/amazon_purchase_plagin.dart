@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:amazon_purchase_plagin/sku_object.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
 class AmazonPurchasePlugin {
@@ -18,8 +20,11 @@ class AmazonPurchasePlugin {
     print(result);
   }
 
-  static void buySubscription() async {
-    var result = await _channel.invokeMethod('buy');
-    print(result);
+  ///returned requestId
+  static Future<String> buySubscription({@required String sku, String marketPlace}) async {
+    var requestId = await _channel.invokeMethod(
+        'buy', SkuObject(sku: sku, marketPlace: marketPlace).toJson().toString());
+    print(requestId);
+    return (requestId as String);
   }
 }

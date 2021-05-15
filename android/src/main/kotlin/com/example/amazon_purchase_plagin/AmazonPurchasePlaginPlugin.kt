@@ -1,6 +1,7 @@
 package com.example.amazon_purchase_plagin
 
 import android.content.Context
+import android.util.JsonReader
 import android.util.Log
 import androidx.annotation.NonNull
 import com.amazon.device.iap.PurchasingService
@@ -13,6 +14,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import org.json.JSONObject
 
 /** AmazonPurchasePlaginPlugin */
 class AmazonPurchasePlaginPlugin : FlutterPlugin, MethodCallHandler, EventChannel.StreamHandler {
@@ -53,8 +55,10 @@ class AmazonPurchasePlaginPlugin : FlutterPlugin, MethodCallHandler, EventChanne
                 result.success(true)
             }
             "buy" -> {
-                val requestId = PurchasingService.purchase(MySku.MY_MAGAZINE_SUBS.sku)
-                result.success(true)
+                val json: JSONObject = JSONObject(call.arguments.toString())
+                val sku: String = json.getString("sku")
+                val requestId = PurchasingService.purchase(sku)
+                result.success(requestId.toString())
             }
             else -> {
                 result.notImplemented()
