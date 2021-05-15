@@ -1,4 +1,4 @@
-# amazon_purchase_plagin_example
+# amazon_purchase_plugin_example
 
 Demonstrates how to use the amazon_purchase_plagin plugin.
 

@@ -1,4 +1,4 @@
-# amazon_purchase_plagin
+# amazon_purchase_plugin
 
 A new Flutter plugin.
 
