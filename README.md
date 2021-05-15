@@ -1,0 +1,1 @@
+# flutter_plugin_purchase_amazon
