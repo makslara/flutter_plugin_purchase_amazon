@@ -19,23 +19,16 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    streamSubscription = AmazonPurchasePlugin.channelStream.listen((event) {
-      setState(() {
-        _platformVersion = event.toString();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      AmazonPurchasePlugin.setup();
+      AmazonPurchasePlugin.buySubscription(sku: 'com.locals.testsubscription', marketPlace: 'US')
+          .then((requestId) {
+        print(requestId);
       });
-      print(event);
-    }, onError: ((handleError) {
-      setState(() {
-        _platformVersion = handleError.toString();
-      });
-      print(handleError);
-    }));
-    AmazonPurchasePlugin.setup();
-    AmazonPurchasePlugin.buySubscription(
-            sku: 'com.locals.testsubscription', marketPlace: 'BklklkhY')
-        .then((requestId) {
-      print(requestId);
+      AmazonPurchasePlugin.getProduct(sku: 'com.locals.testsubscription', marketPlace: 'US')
+          .then((value) => print(value));
     });
+
     super.initState();
     initPlatformState();
   }
@@ -70,7 +63,22 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: StreamBuilder<dynamic>(
+              stream: AmazonPurchasePlugin.getChannelStream,
+              builder: (context, snapshot) {
+                if (snapshot.hasData)
+                  return Text('Data: ${snapshot.data}');
+                else if (snapshot.hasError) {
+                  return Text('Data: ${(snapshot.error as PlatformException).code},\n'
+                      '${(snapshot.error as PlatformException).message},\n'
+                      '${(snapshot.error as PlatformException).details}');
+                } else
+                  return Container(
+                    height: 30,
+                    width: 30,
+                    child: CircularProgressIndicator(),
+                  );
+              }),
         ),
       ),
     );

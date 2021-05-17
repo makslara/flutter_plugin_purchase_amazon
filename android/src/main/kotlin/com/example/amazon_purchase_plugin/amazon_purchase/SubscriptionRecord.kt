@@ -1,11 +1,5 @@
 package com.example.amazon_purchase_plugin.amazon_purchase
 
-/**
- * This is a sample SubscriptionRecord object that holds the InAppPurchase
- * Subscription details.
- *
- *
- */
 class SubscriptionRecord {
     var amazonReceiptId: String? = null
     var from: Long = 0

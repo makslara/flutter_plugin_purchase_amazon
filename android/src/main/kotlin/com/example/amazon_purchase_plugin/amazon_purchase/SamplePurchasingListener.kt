@@ -63,6 +63,7 @@ class SamplePurchasingListener(private val iapManager: SampleIapManager) : Purch
                 iapManager.enablePurchaseForSkus(response.productData)
                 iapManager.disablePurchaseForSkus(response.unavailableSkus)
                 iapManager.refreshMagazineSubsAvailability()
+                iapManager.productDataResponse(response)
             }
             ProductDataResponse.RequestStatus.FAILED, ProductDataResponse.RequestStatus.NOT_SUPPORTED -> {
                 Log.d(TAG, "onProductDataResponse: failed, should retry request")
@@ -132,9 +133,9 @@ class SamplePurchasingListener(private val iapManager: SampleIapManager) : Purch
                 iapManager.reloadSubscriptionStatus()
             }
             PurchaseResponse.RequestStatus.ALREADY_PURCHASED -> {
-                iapManager.errorHandler("onPurchaseResponse: already purchased, you should verify the subscription purchase on your side and make sure the purchase was granted to customer")
                 Log.i(TAG,
                         "onPurchaseResponse: already purchased, you should verify the subscription purchase on your side and make sure the purchase was granted to customer")
+                iapManager.failed("ALREADY_PURCHASED", requestId, "Purchase response ALREADY_PURCHASED", "onPurchaseResponse: already purchased, you should verify the subscription purchase on your side and make sure the purchase was granted to customer")
             }
             PurchaseResponse.RequestStatus.INVALID_SKU -> {
                 Log.d(TAG,
@@ -142,11 +143,12 @@ class SamplePurchasingListener(private val iapManager: SampleIapManager) : Purch
                 val unavailableSkus: MutableSet<String?> = HashSet()
                 unavailableSkus.add(response.receipt.sku)
                 iapManager.disablePurchaseForSkus(unavailableSkus)
+                iapManager.failed("INVALID_SKU", requestId, "Purchase response INVALID_SKU", "sku - ${response.receipt.sku}, onPurchaseResponse: invalid SKU!  onProductDataResponse should have disabled buy button already.")
 
             }
             PurchaseResponse.RequestStatus.FAILED, PurchaseResponse.RequestStatus.NOT_SUPPORTED -> {
                 Log.d(TAG, "onPurchaseResponse: failed so remove purchase request from local storage")
-                iapManager.purchaseFailed("FAILED")
+                iapManager.failed("FAILED", requestId, "Purchase response FAILED", "onPurchaseResponse: failed so remove purchase request from local storage")
             }
         }
     }

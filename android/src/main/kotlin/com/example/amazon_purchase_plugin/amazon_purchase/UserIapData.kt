@@ -1,11 +1,5 @@
 package com.example.amazon_purchase_plugin.amazon_purchase
 
-/**
- * This is a simple example used in Amazon InAppPurchase Sample App, to show how
- * developer's application holding the customer's InAppPurchase data.
- *
- *
- */
 class UserIapData(val amazonUserId: String, val amazonMarketplace: String) {
     var subscriptionRecords: List<SubscriptionRecord>? = null
     var isSubsActiveCurrently = false

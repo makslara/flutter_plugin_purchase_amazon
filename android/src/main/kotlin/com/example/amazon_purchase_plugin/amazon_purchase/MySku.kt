@@ -28,9 +28,8 @@ enum class MySku(
          * @param marketplace
          * @return
          */
-        fun fromSku(sku: String, marketplace: String?): MySku? {
-            return if (MY_MAGAZINE_SUBS.sku == sku && (null == marketplace || (MY_MAGAZINE_SUBS.availableMarketplace
-                            == marketplace))) {
+        fun fromSku(sku: String): MySku? {
+            return if (MY_MAGAZINE_SUBS.sku == sku) {
                 MY_MAGAZINE_SUBS
             } else null
         }

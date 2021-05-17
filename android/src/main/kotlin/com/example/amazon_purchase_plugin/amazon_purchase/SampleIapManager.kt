@@ -67,9 +67,6 @@ class SampleIapManager(context: Context?, private val eventSink: EventChannel.Ev
      *
      * @param unavailableSkus
      */
-    fun errorHandler(errorStatus: String) {
-        eventSink?.error(errorStatus, errorStatus, "error purchase")
-    }
 
     fun disablePurchaseForSkus(unavailableSkus: Set<String?>) {
 
@@ -93,7 +90,6 @@ class SampleIapManager(context: Context?, private val eventSink: EventChannel.Ev
      * @param receiptId
      */
     fun handleSubscriptionPurchase(receipt: Receipt, userData: UserData) {
-        eventSink?.success(userData.toJSON().toString() + receipt.toJSON().toString())
         try {
             if (receipt.isCanceled) {
                 // Check whether this receipt is for an expired or canceled
@@ -115,8 +111,7 @@ class SampleIapManager(context: Context?, private val eventSink: EventChannel.Ev
     }
 
     private fun grantSubscriptionPurchase(receipt: Receipt, userData: UserData) {
-        eventSink?.success(userData.toJSON().toString() + receipt.toJSON().toString())
-        val mySku = MySku.fromSku(receipt.sku, userIapData!!.amazonMarketplace)
+        val mySku = MySku.fromSku(receipt.sku)
         // Verify that the SKU is still applicable.
         if (mySku != MySku.MY_MAGAZINE_SUBS) {
             Log.w(TAG, "The SKU [" + receipt.sku + "] in the receipt is not valid anymore ")
@@ -127,7 +122,8 @@ class SampleIapManager(context: Context?, private val eventSink: EventChannel.Ev
         }
         try {
             // Set the purchase status to fulfilled for your application
-            saveSubscriptionRecord(receipt, userData.userId)
+            purchaseSuccess(userData,receipt)
+            //saveSubscriptionRecord(receipt, userData.userId)
             PurchasingService.notifyFulfillment(receipt.receiptId, FulfillmentResult.FULFILLED)
         } catch (e: Throwable) {
             // If for any reason the app is not able to fulfill the purchase,
@@ -144,13 +140,14 @@ class SampleIapManager(context: Context?, private val eventSink: EventChannel.Ev
      * @param userData
      */
     fun handleReceipt(requestId: String?, receipt: Receipt, userData: UserData) {
-        eventSink?.success(userData.toJSON().toString() + receipt.toJSON().toString())
         when (receipt.productType) {
             ProductType.CONSUMABLE -> {
             }
             ProductType.ENTITLED -> {
             }
-            ProductType.SUBSCRIPTION -> handleSubscriptionPurchase(receipt, userData)
+            ProductType.SUBSCRIPTION -> {
+                handleSubscriptionPurchase(receipt, userData)
+            }
         }
     }
 
@@ -158,8 +155,17 @@ class SampleIapManager(context: Context?, private val eventSink: EventChannel.Ev
      * Show purchase failed message
      * @param sku
      */
-    fun purchaseFailed(sku: String?) {
-        eventSink?.success("'Failed'")
+    fun failed(errorCode:String?,requestId: String?,msg :String?,errorDetails: String?) {
+        eventSink?.error(errorCode,msg,"requestID: $requestId ,$errorDetails")
+    }
+    
+    fun purchaseSuccess(userData: UserData,receipt: Receipt) {
+        val result: String = purchaseResponseMapper(userData,receipt)
+        eventSink?.success(result)
+    }
+    fun productDataResponse(productData:ProductDataResponse) {
+        val result: String = productDataMapper(productData)
+        eventSink?.success(result)
     }
 
     /**
