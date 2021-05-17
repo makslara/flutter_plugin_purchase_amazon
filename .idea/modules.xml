@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/android/amazon_purchase_plagin_android.iml" filepath="$PROJECT_DIR$/android/amazon_purchase_plagin_android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/example/android/amazon_purchase_plagin_example_android.iml" filepath="$PROJECT_DIR$/example/android/amazon_purchase_plagin_example_android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/amazon_purchase_plugin.iml" filepath="$PROJECT_DIR$/amazon_purchase_plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/flutter_plugin_purchase_amazon.iml" filepath="$PROJECT_DIR$/.idea/flutter_plugin_purchase_amazon.iml" />
     </modules>
   </component>
 </project>

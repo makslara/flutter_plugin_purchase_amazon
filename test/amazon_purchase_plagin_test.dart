@@ -1,9 +1,9 @@
-import 'package:amazon_purchase_plagin/amazon_purchase_plagin.dart';
+import 'package:amazon_purchase_plugin/amazon_purchase_plugin.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  const MethodChannel channel = MethodChannel('amazon_purchase_plagin');
+  const MethodChannel channel = MethodChannel('amazon_purchase_plugin');
 
   TestWidgetsFlutterBinding.ensureInitialized();
 

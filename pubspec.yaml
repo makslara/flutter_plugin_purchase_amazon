@@ -28,7 +28,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.example.amazon_purchase_plagin
+        package: com.example.amazon_purchase_plugin
         pluginClass: AmazonPurchasePlaginPlugin
       ios:
         pluginClass: AmazonPurchasePlaginPlugin

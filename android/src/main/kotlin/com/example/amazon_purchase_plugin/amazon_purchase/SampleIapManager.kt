@@ -1,4 +1,4 @@
-package com.example.amazon_purchase_plagin.amazon_purchase
+package com.example.amazon_purchase_plugin.amazon_purchase
 
 import android.content.Context
 import android.util.Log

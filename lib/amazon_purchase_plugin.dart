@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:amazon_purchase_plagin/sku_object.dart';
+import 'package:amazon_purchase_plugin/sku_object.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 

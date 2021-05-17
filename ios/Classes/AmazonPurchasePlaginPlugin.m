@@ -3,7 +3,7 @@
 @implementation AmazonPurchasePlaginPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   FlutterMethodChannel* channel = [FlutterMethodChannel
-      methodChannelWithName:@"amazon_purchase_plagin"
+      methodChannelWithName:@"amazon_purchase_plugin"
             binaryMessenger:[registrar messenger]];
   AmazonPurchasePlaginPlugin* instance = [[AmazonPurchasePlaginPlugin alloc] init];
   [registrar addMethodCallDelegate:instance channel:channel];

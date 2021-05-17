@@ -1,6 +1,6 @@
 # amazon_purchase_plugin_example
 
-Demonstrates how to use the amazon_purchase_plagin plugin.
+Demonstrates how to use the amazon_purchase_plugin plugin.
 
 ## Getting Started
 

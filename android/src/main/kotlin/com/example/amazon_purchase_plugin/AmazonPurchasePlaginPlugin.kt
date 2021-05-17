@@ -1,13 +1,13 @@
-package com.example.amazon_purchase_plagin
+package com.example.amazon_purchase_plugin
 
 import android.content.Context
 import android.util.JsonReader
 import android.util.Log
 import androidx.annotation.NonNull
 import com.amazon.device.iap.PurchasingService
-import com.example.amazon_purchase_plagin.amazon_purchase.MySku
-import com.example.amazon_purchase_plagin.amazon_purchase.SampleIapManager
-import com.example.amazon_purchase_plagin.amazon_purchase.SamplePurchasingListener
+import com.example.amazon_purchase_plugin.amazon_purchase.MySku
+import com.example.amazon_purchase_plugin.amazon_purchase.SampleIapManager
+import com.example.amazon_purchase_plugin.amazon_purchase.SamplePurchasingListener
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
@@ -55,7 +55,7 @@ class AmazonPurchasePlaginPlugin : FlutterPlugin, MethodCallHandler, EventChanne
                 result.success(true)
             }
             "buy" -> {
-                val json: JSONObject = JSONObject(call.arguments.toString())
+                val json = JSONObject(call.arguments.toString())
                 val sku: String = json.getString("sku")
                 val requestId = PurchasingService.purchase(sku)
                 result.success(requestId.toString())

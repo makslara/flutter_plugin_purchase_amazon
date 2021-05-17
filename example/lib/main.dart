@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:amazon_purchase_plagin/amazon_purchase_plagin.dart';
+import 'package:amazon_purchase_plugin/amazon_purchase_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -31,7 +31,8 @@ class _MyAppState extends State<MyApp> {
       print(handleError);
     }));
     AmazonPurchasePlugin.setup();
-    AmazonPurchasePlugin.buySubscription(sku: 'com.locals.testsubscription', marketPlace: 'US')
+    AmazonPurchasePlugin.buySubscription(
+            sku: 'com.locals.testsubscription', marketPlace: 'BklklkhY')
         .then((requestId) {
       print(requestId);
     });

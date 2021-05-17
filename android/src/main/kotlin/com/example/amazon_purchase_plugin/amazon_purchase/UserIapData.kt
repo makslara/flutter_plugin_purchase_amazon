@@ -1,4 +1,4 @@
-package com.example.amazon_purchase_plagin.amazon_purchase
+package com.example.amazon_purchase_plugin.amazon_purchase
 
 /**
  * This is a simple example used in Amazon InAppPurchase Sample App, to show how
