@@ -1,5 +1,6 @@
 package com.example.amazon_purchase_plugin.amazon_purchase
 
+import android.util.JsonWriter
 import com.amazon.device.iap.model.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -17,7 +18,6 @@ fun purchaseResponseMapper(userData: UserData, receipt: Receipt): String {
 }
 
 fun productDataMapper(productDataResponse: ProductDataResponse): String {
-    val json = JSONObject()
     val productData:ArrayList<JSONObject> = ArrayList()
     if (productDataResponse.productData != null &&productDataResponse.productData.isNotEmpty()) {
         val iterator: Iterator<String> = productDataResponse.productData.keys.iterator()
@@ -26,13 +26,19 @@ fun productDataMapper(productDataResponse: ProductDataResponse): String {
             productData.add((productDataResponse.productData[iteratorNext] as Product).toJSON())
         }
     }
-
     val map = mapOf("purchaseService" to "PRODUCT", "data" to JSONArray(productData))
     return  JSONObject(map).toString()
 }
-fun restorePurchaseMapper(productDataResponse: PurchaseUpdatesResponse): String {
-    val json = productDataResponse.toJSON().toString()
-    val map = mapOf("purchaseService" to "RESTORE", "data" to json)
+fun restorePurchaseMapper(restorePurchase: PurchaseUpdatesResponse): String {
+    val productData:ArrayList<JSONObject> = ArrayList()
+    if(!restorePurchase.receipts.isNullOrEmpty()){
+        val iterator: Iterator<Receipt> = restorePurchase.receipts.iterator()
+        while (iterator.hasNext()) {
+            val iteratorNext = iterator.next() as Receipt
+            productData.add(iteratorNext.toJSON());
+        }
+    }
+    val map = mapOf("purchaseService" to "RESTORE", "data" to JSONArray(productData))
     return  JSONObject(map).toString()
 }
 

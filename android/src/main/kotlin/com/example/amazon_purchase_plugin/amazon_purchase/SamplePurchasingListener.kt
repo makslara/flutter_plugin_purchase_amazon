@@ -89,6 +89,7 @@ class SamplePurchasingListener(private val iapManager: SampleIapManager) : Purch
         val status = response.requestStatus
         when (status) {
             PurchaseUpdatesResponse.RequestStatus.SUCCESSFUL -> {
+                iapManager.restorePurchase(response)
                 iapManager.setAmazonUserId(response.userData.userId, response.userData.marketplace)
                 for (receipt in response.receipts) {
                     iapManager.handleReceipt(response.requestId.toString(), receipt!!, response.userData)

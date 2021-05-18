@@ -21,11 +21,13 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       AmazonPurchasePlugin.setup();
-      AmazonPurchasePlugin.buySubscription(sku: 'com.locals.testsubscription', marketPlace: 'US')
+      /*  AmazonPurchasePlugin.buySubscription(sku: 'com.locals.testsubscription', marketPlace: 'US')
           .then((requestId) {
         print(requestId);
       });
       AmazonPurchasePlugin.getProduct(sku: 'com.locals.testsubscription', marketPlace: 'US')
+          .then((value) => print(value));*/
+      AmazonPurchasePlugin.restorePurchase(sku: 'com.locals.testsubscription', marketPlace: 'US')
           .then((value) => print(value));
     });
 

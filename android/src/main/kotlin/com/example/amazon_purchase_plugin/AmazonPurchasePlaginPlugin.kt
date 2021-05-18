@@ -63,7 +63,8 @@ class AmazonPurchasePlaginPlugin : FlutterPlugin, MethodCallHandler, EventChanne
                 result.success(requestId.toString())
             }
             "restorePurchase" -> {
-                val requestId = PurchasingService.getPurchaseUpdates(false)
+                val reset:Boolean = call.arguments as Boolean
+                val requestId = PurchasingService.getPurchaseUpdates(true)
                 result.success(requestId.toString())
             }
             else -> {
