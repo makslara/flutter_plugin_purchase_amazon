@@ -58,7 +58,12 @@ class AmazonPurchasePlaginPlugin : FlutterPlugin, MethodCallHandler, EventChanne
                 val skuFromCall = json.getString("sku")
                 val productSkus: MutableSet<String> = HashSet()
                 productSkus.add(skuFromCall)
+                productSkus.add("testSubscriptionTerm")
                 val requestId = PurchasingService.getProductData(productSkus)
+                result.success(requestId.toString())
+            }
+            "restorePurchase" -> {
+                val requestId = PurchasingService.getPurchaseUpdates(false)
                 result.success(requestId.toString())
             }
             else -> {
