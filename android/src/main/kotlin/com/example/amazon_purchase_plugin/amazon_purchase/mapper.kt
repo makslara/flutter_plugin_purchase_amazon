@@ -18,12 +18,12 @@ fun purchaseResponseMapper(userData: UserData, receipt: Receipt): String {
 }
 
 fun productDataMapper(productDataResponse: ProductDataResponse): String {
-    val json: JSONObject = JSONObject()
-    if (productDataResponse.productData != null) {
+    val json = JSONObject()
+    if (productDataResponse.productData != null &&productDataResponse.productData.isNotEmpty()) {
         val iterator: Iterator<String> = productDataResponse.productData.keys.iterator()
         while (iterator.hasNext()) {
             val iteratorNext = iterator.next() as String
-            json.put(iteratorNext, (productDataResponse.productData.get(iteratorNext) as Product).toJSON())
+            json.put(iteratorNext, (productDataResponse.productData[iteratorNext] as Product).toJSON())
         }
     }
     val map = mapOf("purchaseService" to "PRODUCT", "data" to json)
