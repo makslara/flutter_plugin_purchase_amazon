@@ -21,6 +21,15 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       AmazonPurchasePlugin.setup();
+      /*AmazonPurchasePlugin.buySubscription(sku: 'com.locals.testsubscription', marketPlace: 'US')
+          .then((requestId) {
+        print(requestId);
+      });*/
+      AmazonPurchasePlugin.buySubscription(sku: 'com.locals.testsubscription', marketPlace: 'US')
+          .then((requestId) {
+        print(requestId);
+      });
+
       /*  AmazonPurchasePlugin.buySubscription(sku: 'com.locals.testsubscription', marketPlace: 'US')
           .then((requestId) {
         print(requestId);
@@ -29,7 +38,7 @@ class _MyAppState extends State<MyApp> {
           .then((value) => print(value));*/
       /*AmazonPurchasePlugin.restorePurchase(reset: true)
           .then((value) => print(value));*/
-      AmazonPurchasePlugin.getUserData().then((value) => print(value));
+      //AmazonPurchasePlugin.getUserData().then((value) => print(value));
     });
 
     super.initState();

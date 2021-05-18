@@ -13,8 +13,10 @@ import 'service_response/purchase_service.dart';
 class AmazonPurchasePlugin {
   static const MethodChannel _channel = const MethodChannel('amazon_purchase_channel');
   static const EventChannel _eventChannel = const EventChannel('event_channel');
-  StreamController<String> streamController = StreamController();
   static Stream<dynamic> _channelStream;
+
+  StreamController<String> _purchaseController = StreamController();
+  StreamController<String> _productsController = StreamController();
 
   static Stream<dynamic> get getChannelStream {
     if (_channelStream == null)
@@ -34,7 +36,7 @@ class AmazonPurchasePlugin {
           print(userDataResponse);
         }
         //return purchaseResponse;
-      });
+      }).handleError((error) {});
     return _channelStream;
   }
 
@@ -78,7 +80,7 @@ class AmazonPurchasePlugin {
   void setupStream() {}
 
   dispose() {
-    if (streamController != null) streamController.close();
-    streamController = null;
+    if (_purchaseController != null) _purchaseController.close();
+    _purchaseController = null;
   }
 }
