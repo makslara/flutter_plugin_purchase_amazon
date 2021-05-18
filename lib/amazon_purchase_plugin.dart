@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:amazon_purchase_plugin/service_response/product_response.dart';
 import 'package:amazon_purchase_plugin/service_response/purchase_response.dart';
 import 'package:amazon_purchase_plugin/service_response/restore_purchase_response.dart';
+import 'package:amazon_purchase_plugin/service_response/user_data_response.dart';
 import 'package:amazon_purchase_plugin/sku_object.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -28,6 +29,9 @@ class AmazonPurchasePlugin {
         } else if (purchaseService.purchaseService == PurchaseServiceENUM.RESTORE.value()) {
           RestorePurchaseResponse productResponse = RestorePurchaseResponse.fromJson(event);
           print(productResponse);
+        } else if (purchaseService.purchaseService == PurchaseServiceENUM.USER_DATA.value()) {
+          UserDataResponse userDataResponse = UserDataResponse.fromJson(event);
+          print(userDataResponse);
         }
         //return purchaseResponse;
       });
@@ -60,8 +64,14 @@ class AmazonPurchasePlugin {
   }
 
   ///returned requestId
-  static Future<String> restorePurchase({@required String sku, String marketPlace}) async {
-    var requestId = await _channel.invokeMethod('restorePurchase', false);
+  static Future<String> restorePurchase({bool reset}) async {
+    var requestId = await _channel.invokeMethod('restorePurchase', reset);
+    return (requestId as String);
+  }
+
+  ///returned requestId
+  static Future<String> getUserData() async {
+    var requestId = await _channel.invokeMethod('userData');
     return (requestId as String);
   }
 

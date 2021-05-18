@@ -41,4 +41,8 @@ fun restorePurchaseMapper(restorePurchase: PurchaseUpdatesResponse): String {
     val map = mapOf("purchaseService" to "RESTORE", "data" to JSONArray(productData))
     return  JSONObject(map).toString()
 }
+fun getUserData(userData: UserDataResponse): String {
+    val map = mapOf("purchaseService" to "USER_DATA", "data" to userData.toJSON())
+    return  JSONObject(map).toString()
+}
 

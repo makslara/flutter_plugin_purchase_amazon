@@ -27,8 +27,9 @@ class _MyAppState extends State<MyApp> {
       });
       AmazonPurchasePlugin.getProduct(sku: 'com.locals.testsubscription', marketPlace: 'US')
           .then((value) => print(value));*/
-      AmazonPurchasePlugin.restorePurchase(sku: 'com.locals.testsubscription', marketPlace: 'US')
-          .then((value) => print(value));
+      /*AmazonPurchasePlugin.restorePurchase(reset: true)
+          .then((value) => print(value));*/
+      AmazonPurchasePlugin.getUserData().then((value) => print(value));
     });
 
     super.initState();

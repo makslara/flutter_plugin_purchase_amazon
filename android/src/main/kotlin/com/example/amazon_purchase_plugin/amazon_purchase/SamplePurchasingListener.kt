@@ -31,6 +31,7 @@ class SamplePurchasingListener(private val iapManager: SampleIapManager) : Purch
         val status = response.requestStatus
         when (status) {
             UserDataResponse.RequestStatus.SUCCESSFUL -> {
+                iapManager.setUserData(response)
                 Log.d(TAG, "onUserDataResponse: get user id (" + response.userData.userId
                         + ", marketplace ("
                         + response.userData.marketplace

@@ -17,7 +17,7 @@ extension PurchaseServiceExtention on PurchaseServiceENUM {
         return 'RESTORE';
         break;
       case PurchaseServiceENUM.USER_DATA:
-        // TODO: Handle this case.
+        return "USER_DATA";
         break;
     }
   }

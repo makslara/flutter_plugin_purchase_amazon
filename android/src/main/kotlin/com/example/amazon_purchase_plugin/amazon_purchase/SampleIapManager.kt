@@ -171,6 +171,10 @@ class SampleIapManager(context: Context?, private val eventSink: EventChannel.Ev
         val result: String = restorePurchaseMapper(restorePurchase)
         eventSink?.success(result)
     }
+    fun setUserData(userDataResponse:UserDataResponse) {
+        val result: String = getUserData(userDataResponse)
+        eventSink?.success(result)
+    }
 
     /**
      * Disable all magezine subscriptions on UI
